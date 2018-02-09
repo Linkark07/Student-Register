@@ -1,0 +1,6 @@
+name: Student Register
+description: Creates forms for register students on the website.
+package: Form
+type: module
+version: 1.0
+core: 8.x

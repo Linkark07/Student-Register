@@ -1,0 +1,16 @@
+<?php
+use Drupal\Core\Routing\RouteMatchInterface;
+
+function student_register_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_macth){
+
+  switch($route_name){
+
+    case 'help.page.student_register':
+
+    $output = t('This is a simple module for register students into the system.');
+
+    return $output;
+  }
+
+
+}

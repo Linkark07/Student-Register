@@ -1,0 +1,7 @@
+register.form:
+  path: '/student/register'
+  defaults:
+    _form: '\Drupal\student_register\Form\RegisterForm'
+    _title: 'Register Form'
+  requirements:
+    _permission: 'access content'

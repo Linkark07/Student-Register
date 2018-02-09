@@ -1,0 +1,5 @@
+register.student_register:
+  title: 'Student Register'
+  description: 'Form for register students.'
+  expanded: 1
+  route_name: register.form

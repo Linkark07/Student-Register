@@ -1,0 +1,54 @@
+<?php
+
+function student_register_schema(){
+
+    $schema = [];
+
+    $schema['students'] = array(
+    'description' => "Scores the students that registered.",
+    'fields' => [
+      'sid' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'cedula' => [
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+      ],
+      'firstname' => [
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+      ],
+      'lastname' => [
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+      ],
+    ],
+    'unique keys' => array(
+      'cedula' => array(
+        'cedula',
+      ),
+    ),
+
+    'primary key' => array(
+      'sid',
+    ),
+  );
+
+  return $schema;
+
+}
+function student_register_install() {
+//  node_access_rebuild(TRUE);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function student_register_uninstall() {
+  //node_access_rebuild(TRUE);
+}
