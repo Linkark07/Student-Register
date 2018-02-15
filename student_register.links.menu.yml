@@ -3,3 +3,9 @@ register.student_register:
   description: 'Form for register students.'
   expanded: 1
   route_name: register.form
+
+table.student_register:
+  title: 'Students Records'
+  description: 'Table that shows all the students registered.'
+  expanded: 1
+  route_name: students_table

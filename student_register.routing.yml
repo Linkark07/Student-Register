@@ -1,7 +1,26 @@
 register.form:
-  path: '/student/register'
+  path: 'student/register'
   defaults:
     _form: '\Drupal\student_register\Form\RegisterForm'
     _title: 'Register Form'
   requirements:
     _permission: 'access content'
+
+update.form:
+  path: 'student/update/{dominio}'
+  defaults:
+    _form: '\Drupal\student_register\Form\UpdateForm'
+    _title: 'Update Form'
+  requirements:
+    _permission: 'access content'
+    dominio: '^[a-zA-Z0-9_]+'
+
+
+students_table:
+  path: 'student/records'
+  defaults:
+    _controller: '\Drupal\student_register\Controller\StudentsTable::description'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: 'TRUE'
