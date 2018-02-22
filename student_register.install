@@ -5,7 +5,7 @@ function student_register_schema(){
     $schema = [];
 
     $schema['students'] = array(
-    'description' => "Scores the students that registered.",
+    'description' => "Students registered on the school.",
     'fields' => [
       'sid' => [
         'type' => 'serial',
@@ -27,6 +27,26 @@ function student_register_schema(){
         'length' => 100,
         'not null' => TRUE,
       ],
+      'gender' => [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'email' => [
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => TRUE,
+      ],
+      'age' => [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'user' => [
+        'type' => 'varchar',
+        'length' => 70,
+        'not null' => TRUE,
+      ],
     ],
     'unique keys' => array(
       'cedula' => array(
@@ -38,6 +58,16 @@ function student_register_schema(){
       'sid',
     ),
   );
+
+    $schema['subjects'] = array(
+      'description' => "Subjects registered in the school.",
+      'fields' => [
+        'suid' => [
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+    );
 
   return $schema;
 
