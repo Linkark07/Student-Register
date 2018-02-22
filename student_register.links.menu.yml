@@ -1,11 +1,12 @@
 register.student_register:
-  title: 'Student Register'
+  title: 'Register Student'
   description: 'Form for register students.'
-  expanded: 1
+  weight: 0
+  parent: table.student_register
   route_name: register.form
 
 table.student_register:
   title: 'Students Records'
   description: 'Table that shows all the students registered.'
-  expanded: 1
+  expanded: TRUE
   route_name: students_table
