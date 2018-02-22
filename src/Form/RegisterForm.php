@@ -11,6 +11,8 @@ class RegisterForm extends FormBase{
  }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
+
+
     $form['student_id'] = array(
       '#type' => 'textfield',
       '#title' => t('Student ID'),
@@ -26,18 +28,29 @@ class RegisterForm extends FormBase{
       '#title' => t('Last Name'),
       '#required' => TRUE,
     );
-    /*$form['candidate_dob'] = array (
-      '#type' => 'date',
-      '#title' => t('DOB'),
-      '#required' => TRUE,
-    );
-    $form['candidate_gender'] = array (
+    $form['student_gender'] = array (
       '#type' => 'select',
       '#title' => ('Gender'),
+      '#required' => TRUE,
       '#options' => array(
         'Female' => t('Female'),
         'male' => t('Male'),
       ),
+    );
+    $form['student_email'] = array (
+      '#type' => 'email',
+      '#title' => t('Email'),
+      '#required' => TRUE,
+    );
+    $form['student_age'] = array (
+      '#type' => 'textfield',
+      '#title' => t('Age'),
+      '#required' => TRUE,
+    );
+    /*$form['candidate_dob'] = array (
+      '#type' => 'date',
+      '#title' => t('DOB'),
+      '#required' => TRUE,
     );
     $form['candidate_confirmation'] = array (
       '#type' => 'radios',
@@ -70,33 +83,47 @@ class RegisterForm extends FormBase{
     return $form;
   }
 
-/*  public function validateForm(array &$form, FormStateInterface $form_state) {
-     if (strlen($form_state->getValue('candidate_number')) < 10) {
-       $form_state->setErrorByName('candidate_number', $this->t('Mobile number is too short.'));
-     }
-   }*/
+  public function validateForm(array &$form, FormStateInterface $form_state){
+    if (!intval($form_state->getValue('student_age'))) {
+                $form_state->setErrorByName('student_age', $this->t('Age needs to be a number'));
+               }
+  parent::validateForm($form, $form_state);
+  }
+
  /**
   * {@inheritdoc}
   */
  public function submitForm(array &$form, FormStateInterface $form_state) {
+   $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
    try{
    $cedula = $form_state->getValue('student_id');
    $firstname = $form_state->getValue('first_name');
    $lastname = $form_state->getValue('last_name');
+   $gender = $form_state->getValue('student_gender');
+   $email = $form_state->getValue('student_email');
+   $age = $form_state->getValue('student_age');
+   $usuario = $user->get('name')->value;
+
    $campos = array(
      'cedula' => $cedula,
      'firstname' => $firstname,
      'lastname' => $lastname,
+     'gender' => $gender,
+     'email' => $email,
+     'age' => $age,
+     'user' => $usuario,
    );
    db_insert('students')
       ->fields($campos)
       ->execute();
 
-   drupal_set_message(t('The information was inserted successfully.'));
+   drupal_set_message(t('The student was registered successfully.'));
  }
 //\Exception is now needed for catch errors in D8.
  catch(\Exception $e){
    drupal_set_message(t('Error: %message', array('%message' => $e->getMessage())), 'error');
  }
+//ksm($query);
+
   }
 }
