@@ -4,23 +4,38 @@ register.form:
     _form: '\Drupal\student_register\Form\RegisterForm'
     _title: 'Register Form'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer students'
 
 update.form:
-  path: 'student/update/{dominio}'
+  path: 'student/update/{cedula}'
   defaults:
     _form: '\Drupal\student_register\Form\UpdateForm'
     _title: 'Update Form'
   requirements:
-    _permission: 'access content'
-    dominio: '^[a-zA-Z0-9_]+'
-
+    _permission: 'administer students'
 
 students_table:
   path: 'student/records'
   defaults:
     _controller: '\Drupal\student_register\Controller\StudentsTable::description'
   requirements:
-    _permission: 'access content'
+    _permission: 'access students'
   options:
     no_cache: 'TRUE'
+
+  students_export:
+    path: 'student/csv/export'
+    defaults:
+      _controller: '\Drupal\student_register\Controller\StudentsTable::export'
+    requirements:
+      _permission: 'access students'
+    options:
+      no_cache: 'TRUE'
+
+delete.form:
+  path: 'student/delete/{cedula}'
+  defaults:
+    _form: '\Drupal\student_register\Form\DeleteForm'
+    _title: 'Delete Form'
+  requirements:
+    _permission: 'administer students'
