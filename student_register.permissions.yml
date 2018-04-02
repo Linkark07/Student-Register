@@ -1,0 +1,6 @@
+administer students:
+  title: 'Administer Students'
+  description: 'Allow the user to administer students by adding or editing.'
+access students:
+  title: 'Access Students'
+  description: 'Allow the user to see the existing students registered.'

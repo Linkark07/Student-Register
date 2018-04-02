@@ -52,22 +52,15 @@ function student_register_schema(){
       'cedula' => array(
         'cedula',
       ),
+      'email' => array(
+        'email',
+      ),
     ),
 
     'primary key' => array(
       'sid',
     ),
   );
-
-    $schema['subjects'] = array(
-      'description' => "Subjects registered in the school.",
-      'fields' => [
-        'suid' => [
-          'type' => 'serial',
-          'unsigned' => TRUE,
-          'not null' => TRUE,
-        ],
-    );
 
   return $schema;
 
