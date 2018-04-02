@@ -24,6 +24,7 @@ class DeleteForm extends ConfirmFormBase {
    */
 
    public function buildForm(array $form, FormStateInterface $form_state, $cedula = NULL) {
+     //We pass here the value of the student ID that we want to delete.
      $this->cedula = $cedula;
      return parent::buildForm($form, $form_state);
    }
@@ -39,7 +40,7 @@ class DeleteForm extends ConfirmFormBase {
        ->execute();
 
        drupal_set_message('Student was deleted from the database');
-       $this->logger('students')->notice('Deleted student with ID: %cedula', array('%cedula' => $this->cedula));
+       $this->logger('student_register')->notice('Deleted student with ID: %cedula', array('%cedula' => $this->cedula));
 
        $form_state->setRedirectUrl($this->getCancelUrl());
 
@@ -61,6 +62,8 @@ class DeleteForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
+
+   //In this section we create the confirmation view that appears when an user selects delete.
   public function getQuestion() {
     return t('Do you want to delete %cedula?', array('%cedula' => $this->cedula));
   }

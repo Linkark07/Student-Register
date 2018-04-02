@@ -29,6 +29,8 @@ class UpdateForm extends FormBase{
  }
 
   public function buildForm(array $form, FormStateInterface $form_state, $cedula = NULL) {
+    //Before we start, we need to find the record the user wants to update.
+    //In this case, Cedula is that value.
 
     $query = $this->database->select('students', 's');
     $query->fields('s', array('cedula', 'firstname', 'lastname', 'gender', 'email', 'age'));
@@ -36,7 +38,7 @@ class UpdateForm extends FormBase{
     $result = $query->execute();
 
     while ($row = $result->fetchAssoc()) {
-
+    //We introduce in our form as default values the row that the query retrieved.
     $form['student_id'] = array(
       '#type' => 'textfield',
       '#title' => t('Student ID'),
@@ -63,7 +65,7 @@ class UpdateForm extends FormBase{
       '#default_value' => $row['gender'],
       '#options' => array(
         'Female' => t('Female'),
-        'male' => t('Male'),
+        'Male' => t('Male'),
       ),
     );
     $form['student_email'] = array (
@@ -131,15 +133,17 @@ class UpdateForm extends FormBase{
       ->execute();
 
    drupal_set_message(t('The information was updated successfully.'));
+   $this->logger('student_register')->notice('Updated student with ID: %cedula', array('%cedula' => $cedula));
+  }
 
- }
-//\Exception is now needed for catch errors in D8.
+//Exception is now needed for catch errors in D8.
  catch(\Exception $e){
    drupal_set_message(t('db_update failed. Message = %message, query= %query', [
      '%message' => $e->getMessage(),
      '%query' => $e->query_string,
    ]
    ), 'error');
+      $this->logger('student_register')->error('Error: %message', array('%message' => $e->getMessage()));
  }
 //ksm($query);
 

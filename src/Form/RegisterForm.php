@@ -4,6 +4,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 
+
 class RegisterForm extends FormBase{
 
   public function getFormId() {
@@ -34,7 +35,7 @@ class RegisterForm extends FormBase{
       '#required' => TRUE,
       '#options' => array(
         'Female' => t('Female'),
-        'male' => t('Male'),
+        'Male' => t('Male'),
       ),
     );
     $form['student_email'] = array (
@@ -82,7 +83,7 @@ class RegisterForm extends FormBase{
       );
     return $form;
   }
-
+  //Since Age is requiered, we won't check if the field is empty.
   public function validateForm(array &$form, FormStateInterface $form_state){
     if (!intval($form_state->getValue('student_age'))) {
                 $form_state->setErrorByName('student_age', $this->t('Age needs to be a number'));
@@ -118,10 +119,12 @@ class RegisterForm extends FormBase{
       ->execute();
 
    drupal_set_message(t('The student was registered successfully.'));
+   $this->logger('student_register')->notice('Inserted student with ID: %cedula', array('%cedula' => $cedula));
  }
-//\Exception is now needed for catch errors in D8.
+//Exception is now needed for catch errors in D8.
  catch(\Exception $e){
    drupal_set_message(t('Error: %message', array('%message' => $e->getMessage())), 'error');
+   $this->logger('student_register')->error('Error: %message', array('%message' => $e->getMessage()));
  }
 //ksm($query);
 
